@@ -308,8 +308,6 @@ void quick_sort(int * array, int elements)
     }
 #endif
 
-    // XXX printf("%d - %d %d %d\n", elements, array[0], array[1], array[2]);
-
     // select pivot value, and swap it to the end
     pivot_val = array[elements/2];
     swap(&array[elements/2], &array[elements-1]);
@@ -344,7 +342,6 @@ void quick_sort(int * array, int elements)
     // needed to set the pivot_idx is to check the state of array[left_idx]
     pivot_idx = (array[left_idx] > pivot_val
                  ? left_idx : left_idx + 1);
-    // XXX printf("pv %d  li %d  pi %d\n", pivot_val, left_idx, pivot_idx);
 
     // quick sort the left and the right
     quick_sort(array, pivot_idx);
