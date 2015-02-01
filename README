@@ -82,8 +82,9 @@ Four algorithms are compared:
   best distance based on start_city and remaining cities that need to be visited
 - bounded: (an approximate solution). To select the next city to visit
   the top 10 nearest neighbors are examined, for each of these nearest neighbors
-  the top 9 of their nearest neighbors are examined, and so forth. The best distance
-  is used to choose the next city. This process is repeated for subsequent cities.
+  the top 9 of their nearest neighbors are examined, and so forth. The best 
+  distance is used to choose the next city. This process is repeated for 
+  subsequent cities.
 - nearest_neighbor: the next city visited is the nearest neighbor
 
 In the results shown below, the left column is the total distance, and the 
