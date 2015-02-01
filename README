@@ -1,0 +1,210 @@
+
+Title:  Computer Science Project
+
+Author: Steven Haid
+Email:  stevenhaid@gmail.com
+Date:   February 1, 2015
+
+================================================
+INTRODUCTION          
+================================================
+
+The purpose of this project is to compare algorithm performance for 
+sort, traveling salesperson, and knapsack.
+
+================================================
+SORT                  
+================================================
+
+Performance of the following sort algorithms is compared:
+- selection sort
+- insertion sort
+- bubble sort
+- quick sort
+- merge sort
+
+The left column of the results below is the number of elements sorted, and the
+right column is the time in seconds to perform the sort.
+
+This site presents a complexity analysis for the merge and quick sorts.
+http://faculty.simpson.edu/lydia.sinapova/www/cmsc250/LN250_Tremblay/L08-AnalysisMergeSort.htm
+- Merge Sort is O(N*LogN)
+- Quick Sort is
+  . worst case O(N^2)
+  . average case O(N*LogN)
+
+---- results ----
+
+$ ./sort
+Selection Sort ...
+       100:   0.000008
+      1000:   0.000352
+     10000:   0.029959
+    100000:   2.885674
+
+Insertion Sort ...
+       100:   0.000014
+      1000:   0.000196
+     10000:   0.016827
+    100000:   1.728500
+
+Bubble Sort ...
+       100:   0.000019
+      1000:   0.001242
+     10000:   0.181286
+    100000:  21.582768
+
+Quick Sort ...
+       100:   0.000005
+      1000:   0.000051
+     10000:   0.000599
+    100000:   0.007223
+   1000000:   0.085981
+  10000000:   1.002365
+ 100000000:  11.315993
+
+Merge Sort ...
+       100:   0.000049
+      1000:   0.000078
+     10000:   0.000900
+    100000:   0.010504
+   1000000:   0.121540
+  10000000:   1.383285
+ 100000000:  15.540363
+
+================================================
+TRAVELING SALESPERSON
+================================================
+
+Four algorithms are compared:
+- brute_force: all possible routes are evaluated
+- dyn_prog: sub-problem solutions are saved, the sub-problem is the
+  best distance based on start_city and remaining cities that need to be visited
+- bounded: (an approximate solution). To select the next city to visit
+  the top 10 nearest neighbors are examined, for each of these nearest neighbors
+  the top 9 of their nearest neighbors are examined, and so forth. The best distance
+  is used to choose the next city. This process is repeated for subsequent cities.
+- nearest_neighbor: the next city visited is the nearest neighbor
+
+In the results shown below, the left column is the total distance, and the 
+right column is the compute time in seconds.
+
+max_city 13 ...
+  brute_force              2769  14.656489
+  dyn_prog                 2769   0.001445
+  bounded                  2769   0.677392
+  nearest_neighbor         3146   0.000001
+
+max_city 22 ...
+  brute_force           not_run
+  dyn_prog                 3721   5.653075
+  bounded                  3791   5.458540
+  nearest_neighbor         4260   0.000000
+
+max_city 40 ...
+  brute_force           not_run
+  dyn_prog              not_run
+  bounded                  5267  22.849253
+  nearest_neighbor         5599   0.000002
+
+max_city 64 ...
+  brute_force           not_run
+  dyn_prog              not_run
+  bounded                  6516  63.766305
+  nearest_neighbor         7403   0.000005
+
+================================================
+KNAPSACK                 
+================================================
+
+The knapsack problem is to choose items to put in a knapsack to maximize
+the value of the contents of the knapsack. The knapsack has a maximum
+weight capacity. There is a defined set of available items, each item has
+a weight, and a value.
+
+The approximation algorithm ranks items based on their value to weight 
+ratio. Items are added to the knapsack in order of their rank, if an item won't 
+fit (because it would exceed the capacity) then it is skipped.
+
+The top_down_no_dp algorithm is a recursive full search of all the possible
+combinations that will fit in the knapsack. The items are examined in a given
+order. For each item, the best value of the knapsack is determined by comparing
+the value were the item to be added or not added.
+
+The top_down_dp algorithm is the same as top_down_no_dp, except that dynamic
+programming is used. The sub-problem solution saved is the best value of the
+knapsack for a given capacity remaining and items remaining.
+
+The bottom_up algorithm is not recursive. It does use dynamic programming.
+Items are examined in sequence, for each possible remaining capacity the 
+value of the knapsack is determined for the take and no-take cases. The 
+best of the take / no-take value is saved. This value is used when the 
+next item is examined. 
+
+Regarding the results below:
+- duration = computation time in seconds
+- num      = number of items put in the knapsack
+- weight   = weight of items put in the knapsack
+- value    = value of items put in the knapsack
+
+Notes: 
+- approximation algorithm: gives good results for the random items 
+  generated by this program.
+- top_down_no_dp algorithm: takes too long to run when max_item exceeds 30
+
+---- results ----
+
+max_item=10 max_weight=1000 avg_item_weight=244 avg_item_value=229
+  top_down_no_dp duration=0.000195 taking num=4  weight=925  value=1397
+  top_down_dp    duration=0.000037 taking num=4  weight=925  value=1397
+  bottom_up      duration=0.000050 taking num=4  weight=925  value=1397
+  approximation  duration=0.000001 taking num=4  weight=925  value=1397
+
+max_item=20 max_weight=1000 avg_item_weight=102 avg_item_value=82
+  top_down_no_dp duration=0.006224 taking num=13 weight=995  value=1327
+  top_down_dp    duration=0.000228 taking num=13 weight=995  value=1327
+  bottom_up      duration=0.000068 taking num=13 weight=995  value=1327
+  approximation  duration=0.000002 taking num=13 weight=995  value=1327
+
+max_item=30 max_weight=1000 avg_item_weight=82 avg_item_value=70
+  top_down_no_dp duration=1.829747 taking num=16 weight=997  value=1494
+  top_down_dp    duration=0.000265 taking num=16 weight=997  value=1494
+  bottom_up      duration=0.000053 taking num=16 weight=997  value=1494
+  approximation  duration=0.000002 taking num=16 weight=990  value=1490
+
+max_item=40 max_weight=1000 avg_item_weight=53 avg_item_value=49
+  top_down_dp    duration=0.000321 taking num=22 weight=999  value=1562
+  bottom_up      duration=0.000064 taking num=22 weight=999  value=1562
+  approximation  duration=0.000002 taking num=24 weight=990  value=1546
+
+max_item=50 max_weight=1000 avg_item_weight=36 avg_item_value=47
+  top_down_dp    duration=0.000374 taking num=35 weight=1000 value=1989
+  bottom_up      duration=0.000076 taking num=35 weight=1000 value=1989
+  approximation  duration=0.000004 taking num=35 weight=1000 value=1989
+
+max_item=60 max_weight=1000 avg_item_weight=30 avg_item_value=34
+  top_down_dp    duration=0.000453 taking num=39 weight=999  value=1681
+  bottom_up      duration=0.000090 taking num=39 weight=999  value=1681
+  approximation  duration=0.000005 taking num=39 weight=999  value=1681
+
+max_item=70 max_weight=1000 avg_item_weight=30 avg_item_value=30
+  top_down_dp    duration=0.000551 taking num=41 weight=1000 value=1565
+  bottom_up      duration=0.000192 taking num=41 weight=1000 value=1565
+  approximation  duration=0.000006 taking num=42 weight=984  value=1557
+
+max_item=80 max_weight=1000 avg_item_weight=25 avg_item_value=26
+  top_down_dp    duration=0.000571 taking num=48 weight=1000 value=1627
+  bottom_up      duration=0.000117 taking num=48 weight=1000 value=1627
+  approximation  duration=0.000008 taking num=49 weight=997  value=1625
+
+max_item=90 max_weight=1000 avg_item_weight=21 avg_item_value=22
+  top_down_dp    duration=0.000652 taking num=56 weight=1000 value=1698
+  bottom_up      duration=0.000128 taking num=56 weight=1000 value=1698
+  approximation  duration=0.000008 taking num=58 weight=991  value=1693
+
+max_item=100 max_weight=1000 avg_item_weight=19 avg_item_value=21
+  top_down_dp    duration=0.000732 taking num=65 weight=1000 value=1685
+  bottom_up      duration=0.000141 taking num=65 weight=1000 value=1685
+  approximation  duration=0.000010 taking num=66 weight=992  value=1679
+
+
