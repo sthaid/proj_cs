@@ -2,7 +2,7 @@
 TARGETS = knapsack sort tsp
 
 CC = gcc
-CFLAGS = -g -O2 -Wall -lm -lrt
+CFLAGS = -g -O2 -Wall
 
 all: $(TARGETS)
 
@@ -11,13 +11,13 @@ all: $(TARGETS)
 #
 
 knapsack: knapsack.c
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@ -lm -lrt
 
 sort: sort.c
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@ -lm -lrt
 
 tsp: tsp.c
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@ -lm -lrt
 
 #
 # clean rule
